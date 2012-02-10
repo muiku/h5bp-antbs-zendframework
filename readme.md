@@ -21,6 +21,12 @@ Just edit any file as you have done before:
     cd public/build/
     ant # The H5BP build script will begin to run and compress your files.
 
+This creates three directories:
+
+- public/publish/
+- public/intermediate/
+- application/layouts/scripts/publish/
+
 ### Step 2. Edit application.ini
 
 Change the production layouts folder in application.ini
