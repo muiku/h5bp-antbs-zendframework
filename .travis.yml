@@ -1,13 +1,16 @@
 language: php
+
 before_install:
   - sudo add-apt-repository ppa:eclipse-team/debian-package
-  - sudo apt-get -qq update
-  - sudo apt-get -qq upgrade ant
-  - sudo apt-get -qq install zend-framework-bin
+  - sudo apt-get -q update
+  - sudo apt-get -q upgrade ant
+  - sudo apt-get -q install zend-framework-bin
+
 before_script:
   - ant -version
   - zf show version
   - zf create project .
   - zf enable layout
   - wget --no-check-certificate https://github.com/muiku/h5bp-zendframework/tarball/zfint -O - | tar -xvz --strip 1
+
 script: ant -buildfile public/build/build.xml
