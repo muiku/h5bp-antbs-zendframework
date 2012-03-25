@@ -1,6 +1,6 @@
 language: php
 before_install:
-  - sudo add-apt-repository -qq ppa:eclipse-team/debian-package
+  - sudo add-apt-repository ppa:eclipse-team/debian-package
   - sudo apt-get -qq update
   - sudo apt-get -qq upgrade ant
   - sudo apt-get -qq install zend-framework-bin
