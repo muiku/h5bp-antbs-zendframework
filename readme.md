@@ -93,5 +93,3 @@ The H5BP build script requires ant version 1.8.2. Debian 6 repositories include 
 ## Dig further
 
 - [How to use HTML5 Boilerplate with Zend Framework](http://blog.muiku.com/2012/03/10/how-to-use-html5-boilerplate-with-zend-framework) - blog post
-
-    
