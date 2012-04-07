@@ -6,9 +6,9 @@ before_install:
   - export PATH=~/apache-ant-1.8.3/bin:~/ZendFramework-1.11.11-minimal/bin:$PATH
 before_script:
   - ant -version
-  - zf show version
-  - zf create project .
-  - zf enable layout
+  - zf.sh show version
+  - zf.sh create project .
+  - zf.sh enable layout
   - ln -s ~/ZendFramework-1.11.11-minimal/library/Zend library/Zend
   - wget --no-check-certificate https://github.com/muiku/h5bp-zendframework/tarball/zfint -O - | tar -xvz --strip 1
   - sed -ie 's/layouts\/scripts/layouts\/scripts\/publish/g' application/configs/application.ini
