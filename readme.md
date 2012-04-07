@@ -70,13 +70,13 @@ Change the production layouts folder in application.ini
 
 ## Requirements
 
-The H5BP build script requires ant version 1.8.2. Debian 6 repositories include only version 1.8 so you have to improvise.
+The H5BP build script requires ant version 1.8.2 or later. Debian 6 repositories include only version 1.8 so you have to improvise.
 
     mkdir ~/local ~/bin && cd ~/local
-    wget http://www.nic.funet.fi/pub/mirrors/apache.org//ant/binaries/apache-ant-1.8.2-bin.tar.gz
-    tar -zxvf apache-ant-1.8.2-bin.tar.gz
+    wget http://www.nic.funet.fi/pub/mirrors/apache.org//ant/binaries/apache-ant-1.8.3-bin.tar.gz
+    tar -zxvf apache-ant-1.8.3-bin.tar.gz
     cd ~/bin
-    ln -s ~/local/apache-ant-1.8.2/bin/ant
+    ln -s ~/local/apache-ant-1.8.3/bin/ant
     
 ## Dig further
 
