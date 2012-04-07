@@ -9,6 +9,7 @@ before_script:
   - zf show version
   - zf create project .
   - zf enable layout
+  - ln -s /usr/share/php/libzend-framework-php/Zend library/Zend
   - wget --no-check-certificate https://github.com/muiku/h5bp-zendframework/tarball/zfint -O - | tar -xvz --strip 1
   - sed -ie 's/layouts\/scripts/layouts\/scripts\/publish/g' application/configs/application.ini
 script:
