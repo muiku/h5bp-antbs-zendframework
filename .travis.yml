@@ -15,3 +15,5 @@ before_script:
 script:
   - ant -buildfile public/build/build.xml
 # - phpunit --configuration tests/phpunit.xml
+notifications:
+  email: false
