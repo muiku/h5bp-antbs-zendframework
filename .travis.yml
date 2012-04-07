@@ -1,8 +1,8 @@
 language: php
 before_install:
-  - sudo apt-get -qq install zend-framework-bin
+  - sudo apt-get -qq install zend-framework zend-framework-bin
   - wget http://www.apache.org/dist/ant/binaries/apache-ant-1.8.3-bin.tar.gz
-  - tar -zxvf apache-ant-1.8.3-bin.tar.gz
+  - tar -zxf apache-ant-1.8.3-bin.tar.gz
   - export PATH=~/apache-ant-1.8.3/bin:$PATH
 before_script:
   - ant -version
