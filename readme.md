@@ -2,7 +2,7 @@
 
 ### Install
 
-    cd my-zfproject/
+    cd zfproject/
     wget --no-check-certificate https://github.com/muiku/h5bp-antbs-zendframework/tarball/zfint -O - | tar -xvz --strip 1
     
 ## Development
@@ -32,14 +32,6 @@ This creates three directories:
 Change the production layouts folder in application.ini
 
     [production]
-    phpSettings.display_startup_errors = 0
-    phpSettings.display_errors = 0
-    includePaths.library = APPLICATION_PATH "/../library"
-    bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
-    bootstrap.class = "Bootstrap"
-    appnamespace = "Application"
-    resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
-    resources.frontController.params.displayExceptions = 0
 
     ; Published (H5BP build script generated) layouts
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/publish"
@@ -56,28 +48,24 @@ Change the production layouts folder in application.ini
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
 
     [development : production]
-    phpSettings.display_startup_errors = 1
-    phpSettings.display_errors = 1
-    resources.frontController.params.displayExceptions = 1
+
+    ; Fallback non-minimized layouts
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
 
 ### Step 3. Change the site docroot to point to public/publish/
 
     <VirtualHost *:80>
-        # ...
-
+        ServerName my-zfproject.localhost
         SetEnv APPLICATION_ENV production
 
-    	DocumentRoot /home/me/workspace/myproject/public/publish
+    	DocumentRoot /home/my/workspace/zfproject/public/publish
         DirectoryIndex index.php
 
-        <Directory /home/me/workspace/myproject/public/publish>
+        <Directory /home/my/workspace/zfproject/public/publish>
 	    	AllowOverride All
-		    Order allow,deny
+                Order allow,deny
     		Allow from all
 	    </Directory>
-
-        # ...
     </VirtualHost>
 
 ## Requirements
