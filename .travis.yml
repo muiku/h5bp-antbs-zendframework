@@ -1,18 +1,17 @@
 language: php
 php: 5.4
 before_install:
-  - sudo apt-get -qq install zend-framework zend-framework-bin
-  - wget http://www.apache.org/dist/ant/binaries/apache-ant-1.8.3-bin.tar.gz
-  - tar -zxf apache-ant-1.8.3-bin.tar.gz
-  - export PATH=~/apache-ant-1.8.3/bin:$PATH
+  - wget http://www.apache.org/dist/ant/binaries/apache-ant-1.8.3-bin.tar.gz -O - | tar -xz
+  - wget http://framework.zend.com/releases/ZendFramework-1.11.11/ZendFramework-1.11.11-minimal.tar.gz -O - | tar -xz
+  - export PATH=~/apache-ant-1.8.3/bin:~/ZendFramework-1.11.11-minimal/bin:$PATH
 before_script:
   - ant -version
   - zf show version
   - zf create project .
   - zf enable layout
-  - ln -s /usr/share/php/libzend-framework-php/Zend library/Zend
+  - ln -s ~/ZendFramework-1.11.11-minimal/library/Zend library/Zend
   - wget --no-check-certificate https://github.com/muiku/h5bp-zendframework/tarball/zfint -O - | tar -xvz --strip 1
   - sed -ie 's/layouts\/scripts/layouts\/scripts\/publish/g' application/configs/application.ini
 script:
- - ant -buildfile public/build/build.xml
- - phpunit --configuration tests/phpunit.xml
+  - ant -buildfile public/build/build.xml
+# - phpunit --configuration tests/phpunit.xml
