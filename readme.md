@@ -32,7 +32,6 @@ This creates three directories:
 Change the production layouts folder in application.ini
 
     [production]
-
     ; Published (H5BP build script generated) layouts
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/publish"
 
@@ -45,10 +44,11 @@ Change the production layouts folder in application.ini
     [testing : production]
     phpSettings.display_startup_errors = 1
     phpSettings.display_errors = 1
+
+    ; Fallback non-minimized layouts
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
 
     [development : production]
-
     ; Fallback non-minimized layouts
     resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
 
@@ -62,10 +62,10 @@ Change the production layouts folder in application.ini
         DirectoryIndex index.php
 
         <Directory /home/my/workspace/zfproject/public/publish>
-	    	AllowOverride All
+                AllowOverride All
                 Order allow,deny
-    		Allow from all
-	    </Directory>
+                Allow from all
+        </Directory>
     </VirtualHost>
 
 ## Requirements
