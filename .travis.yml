@@ -10,38 +10,11 @@ before_install:
 install:
   - export PATH=$ANT_HOME/bin:$ZF_HOME/bin:$PATH
 
+  # Install PHPUnit from a Git Checkout
+  - php < <(curl -s https://raw.github.com/kblomqvist/build-scripts/master/install_phpunit.php)
+  - export PHPUNIT=$PWD/phpunit/phpunit.php
+
 before_script:
-  # Install PHPUnit 3.4, https://github.com/lenada/travis-phpunit34
-  - export BUILD_HOME=`pwd`
-  - git submodule update --init
-  - export PYRUS=`which pyrus`
-  - export PHPUNIT_HOME=`pwd`/../phpunit34/
-
-  - mkdir $PHPUNIT_HOME
-  - mkdir ${PHPUNIT_HOME}/bin
-  - cd $PHPUNIT_HOME
-  - $PYRUS $PHPUNIT_HOME set bin_dir ./bin
-  - wget http://components.ez.no/get/Base-1.8.tgz
-  - wget http://components.ez.no/get/ConsoleTools-1.6.1.tgz
-
-  - $PYRUS $PHPUNIT_HOME channel-discover pear.phpunit.de
-  - $PYRUS $PHPUNIT_HOME channel-discover components.ez.no
-  - $PYRUS $PHPUNIT_HOME channel-discover pear.symfony-project.com
-  - $PYRUS $PHPUNIT_HOME install Base-1.8.tgz 
-  - $PYRUS $PHPUNIT_HOME install ConsoleTools-1.6.1.tgz 
-
-  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/File_Iterator-1.2.6
-  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_TokenStream-1.0.1
-  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_CodeCoverage-1.0.5
-  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_Timer
-  - $PYRUS $PHPUNIT_HOME install --optionaldeps pear.phpunit.de/PHPUnit-3.4.15
-
-  - awk '{if(NR==1){print $0,"-d include_path='$PHPUNIT_HOME'php"}else{print }}' ${PHPUNIT_HOME}bin/phpunit > ${PHPUNIT_HOME}bin/phpunit34
-  - cat ${PHPUNIT_HOME}bin/phpunit34
-  - chmod 755 ${PHPUNIT_HOME}bin/phpunit34
-  - PHPUNIT=${PHPUNIT_HOME}bin/phpunit34
-  - export PHPUNIT
-
   - $PHPUNIT --version
   - ant -version
   - zf.sh show version
@@ -53,7 +26,7 @@ before_script:
 
 script:
   - ant -buildfile public/build/build.xml
-  - $PHP_UNIT --configuration tests/phpunit.xml
+  - $PHPUNIT --configuration tests/phpunit.xml
 
 notifications:
   email: false
