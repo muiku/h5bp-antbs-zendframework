@@ -1,10 +1,43 @@
 language: php
-php: 5.4
+php: 5.3
 before_install:
   - wget http://www.apache.org/dist/ant/binaries/apache-ant-1.8.3-bin.tar.gz -O - | tar -xz
   - wget http://framework.zend.com/releases/ZendFramework-1.11.11/ZendFramework-1.11.11-minimal.tar.gz -O - | tar -xz
-before_script:
+install:
   - export PATH=$PWD/apache-ant-1.8.3/bin:$PWD/ZendFramework-1.11.11-minimal/bin:$PATH
+
+  # Install PHPUnit 3.5, https://github.com/lenada/travis-phpunit34
+  - export BUILD_HOME=`pwd`
+  - git submodule update --init
+  - export PYRUS=`which pyrus`
+  - export PHPUNIT_HOME=`pwd`/../phpunit34/
+
+  - mkdir $PHPUNIT_HOME
+  - mkdir ${PHPUNIT_HOME}/bin
+  - cd $PHPUNIT_HOME
+  - $PYRUS $PHPUNIT_HOME set bin_dir ./bin
+  - wget http://components.ez.no/get/Base-1.8.tgz
+  - wget http://components.ez.no/get/ConsoleTools-1.6.1.tgz
+
+  - $PYRUS $PHPUNIT_HOME channel-discover pear.phpunit.de
+  - $PYRUS $PHPUNIT_HOME channel-discover components.ez.no
+  - $PYRUS $PHPUNIT_HOME channel-discover pear.symfony-project.com
+  - $PYRUS $PHPUNIT_HOME install Base-1.8.tgz 
+  - $PYRUS $PHPUNIT_HOME install ConsoleTools-1.6.1.tgz 
+
+  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/File_Iterator-1.2.6
+  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_TokenStream-1.0.1
+  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_CodeCoverage-1.0.5
+  - $PYRUS $PHPUNIT_HOME install pear.phpunit.de/PHP_Timer
+  - $PYRUS $PHPUNIT_HOME install --optionaldeps pear.phpunit.de/PHPUnit-3.4.15
+
+  - awk '{if(NR==1){print $0,"-d include_path='$PHPUNIT_HOME'php"}else{print }}' ${PHPUNIT_HOME}bin/phpunit > ${PHPUNIT_HOME}bin/phpunit34
+  - cat ${PHPUNIT_HOME}bin/phpunit34
+  - chmod 755 ${PHPUNIT_HOME}bin/phpunit34
+  - PHPUNIT=${PHPUNIT_HOME}bin/phpunit34
+  - export PHPUNIT
+before_script:
+  - $PHPUNIT --version
   - ant -version
   - zf.sh show version
   - zf.sh create project .
@@ -14,6 +47,6 @@ before_script:
   - sed -ie 's/layouts\/scripts/layouts\/scripts\/publish/g' application/configs/application.ini
 script:
   - ant -buildfile public/build/build.xml
-# - phpunit --configuration tests/phpunit.xml
+  - phpunit --configuration tests/phpunit.xml
 notifications:
   email: false
